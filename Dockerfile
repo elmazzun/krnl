@@ -8,7 +8,8 @@ RUN apk update && apk add binutils \
     gcc \
     grub \
     make \
-    nasm
+    nasm \
+    xorriso
 
 COPY . .
 
