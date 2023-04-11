@@ -40,6 +40,6 @@ void main(void)
     clear_screen();
     print_string("Ciao kernel", YELLOW);
     vga_index = 80;    /* next line */
-    print_string("Addio kernel", RED);
+    // print_string("Addio kernel", RED);
     return;
 }

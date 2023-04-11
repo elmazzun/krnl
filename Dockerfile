@@ -13,4 +13,4 @@ RUN apk update && apk add binutils \
 
 COPY . .
 
-CMD ["./build-kernel.sh"]
+CMD ["make"]
