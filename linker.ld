@@ -1,5 +1,5 @@
 OUTPUT_FORMAT(elf32-i386)
-/* entry point of our kernel */
+/* entry point of our krnl */
 ENTRY(start)
 
 SECTIONS

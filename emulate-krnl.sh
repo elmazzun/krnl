@@ -2,5 +2,5 @@
 
 qemu-system-i386 \
     -boot d \
-    -kernel kernel \
+    -kernel krnl \
     -m 512

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --tag kernel-development-lab:0.1.0 .
+docker build --tag krnl-development-lab:0.1.0 .

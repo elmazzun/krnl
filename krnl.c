@@ -38,8 +38,8 @@ void main(void)
     vga_index = 0;
 
     clear_screen();
-    print_string("Ciao kernel", YELLOW);
+    print_string("Hello krnl", YELLOW);
     vga_index = 80;    /* next line */
-    // print_string("Addio kernel", RED);
+    print_string("Goodbye krnl", RED);
     return;
 }
