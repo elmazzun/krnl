@@ -40,7 +40,7 @@ $ ./compile-krnl.sh
  => => naming to docker.io/library/krnl-development-lab:0.1.0          0.0s
 
 # Compile the krnl
-$ ./run-lab.sh                       
+$ ./compile-krnl.sh                       
 Compiling bootloader...
 nasm -f elf32 boot.asm -o boot.o
 Compiling krnl...
@@ -57,4 +57,4 @@ image in order to copy updated sources in lab Docker image; all you have
 to do is:
 
 - edit krnl sources;
-- `./run-lab.sh && ./emulate-kernel.sh`
+- `./compile-krnl.sh && ./emulate-kernel.sh`
