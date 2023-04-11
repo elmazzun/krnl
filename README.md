@@ -57,4 +57,4 @@ image in order to copy updated sources in lab Docker image; all you have
 to do is:
 
 - edit krnl sources;
-- `./compile-krnl.sh && ./emulate-kernel.sh`
+- `./compile-krnl.sh && ./emulate-krnl.sh`
