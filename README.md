@@ -58,3 +58,9 @@ to do is:
 
 - edit krnl sources;
 - `./compile-krnl.sh && ./emulate-krnl.sh`
+
+## Resources and credits
+
+- https://www.linuxjournal.com/content/what-does-it-take-make-kernel-0
+- http://www.osdever.net/bkerndev/Docs/title.htm
+- https://wiki.osdev.org/Main_Page
