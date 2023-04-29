@@ -13,13 +13,9 @@ Doesn't that make sense? Then make your own krnl with its own vowels.
 
 I use [Docker](https://www.docker.com/) to create the krnl build environment image.
 
-Run the `compile-krnl.sh` script to create the `krnl-development-lab` image.
-
 ## Testing the krnl
 
 I use [QEMU](https://www.qemu.org/) to test the compiled krnl.
-
-Run the `emulate-krnl.sh` script to create the `krnl-development-lab` image.
 
 ## Workflow
 
@@ -33,7 +29,7 @@ $ git clone ... && cd krnl
 $ sudo apt install ...
 
 # Build the krnl build environment Docker image
-$ ./compile-krnl.sh
+$ ./build-lab.sh
 [+] Building 17.1s (9/9) FINISHED                                                             
  => [internal] load build definition from Dockerfile                   0.0s
  ...
