@@ -11,6 +11,12 @@ else
     .RECIPEPREFIX +=
 endif
 
+AS := i686-elf-as
+CC := i686-elf-gcc
+CFLAGS := -std=gnu99 -Wall -Wextra -g -ggdb -ffreestanding -lgcc
+LD := i686-elf-gcc
+LDFLAGS := -nostdlib -ffreestanding -lgcc
+
 CP := cp
 RM := rm -rf
 MKDIR := mkdir -pv
@@ -25,17 +31,17 @@ GRUB_PATH := $(BOOT_PATH)/grub
 all: bootloader krnl linker iso
     @echo Make has completed.
 
-bootloader: boot.asm
+bootloader: boot.s
     @echo Compiling bootloader...
-    nasm -f elf32 boot.asm -o boot.o
+    $(AS) boot.s -o boot.o
 
 krnl: krnl.c
     @echo Compiling krnl...
-    gcc -m32 -c krnl.c -o krnl.o
+    $(CC) -c krnl.c -o krnl.o $(CFLAGS)
 
 linker: linker.ld boot.o krnl.o
     @echo Linking...
-    ld -m elf_i386 -T linker.ld -o krnl boot.o krnl.o
+    $(LD) -T linker.ld -o krnl boot.o krnl.o $(LDFLAGS)
 
 iso: krnl
     $(MKDIR) $(GRUB_PATH)

@@ -2,20 +2,15 @@
 
 This is a personal experiment in building a krnl to learn more about computer hardware.
 
-This krnl lacks practically everything, it will never be finished (let's be  
-realistic, come on) and it is already a miracle that it passes compilation;  
-therefore, I named it krnl without the vowels because it is definitely  
-missing something.
-
-Doesn't that make sense? Then make your own krnl with its own vowels.
-
 ## Building the krnl
 
-I use [Docker](https://www.docker.com/) to create the krnl build environment image.
+I use [Docker](https://www.docker.com/) to create the krnl build environment image  
+where I cross-compile the krnl.
 
 ## Testing the krnl
 
-I use [QEMU](https://www.qemu.org/) to test the compiled krnl.
+I use [QEMU](https://www.qemu.org/) to run the krnl on a i386 architecture  
+and [GDB](https://www.sourceware.org/gdb/).
 
 ## Workflow
 
@@ -25,8 +20,10 @@ Assuming this is the first time you work with this project.
 # Clone this repo
 $ git clone ... && cd krnl
 
-# Install Docker and QEMU
+# Install Docker, QEMU and GDB
 $ sudo apt install ...
+
+# Copy .my-gdbinit in your home and rename it ./gdbinit
 
 # Build the krnl build environment Docker image
 $ ./build-lab.sh
@@ -37,11 +34,6 @@ $ ./build-lab.sh
 
 # Compile the krnl
 $ ./compile-krnl.sh                       
-Compiling bootloader...
-nasm -f elf32 boot.asm -o boot.o
-Compiling krnl...
-...
-Make has completed.
 
 # Test the krnl
 $ ./emulate-krnl.sh

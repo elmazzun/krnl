@@ -1,6 +1,6 @@
 OUTPUT_FORMAT(elf32-i386)
 /* entry point of our krnl */
-ENTRY(start)
+ENTRY(_start)
 
 SECTIONS
 {
