@@ -14,6 +14,8 @@ endif
 AS := i686-elf-as
 CC := i686-elf-gcc
 CFLAGS := -std=gnu99 -Wall -Wextra -g -ggdb -ffreestanding -lgcc
+# You shouldn't be invoking ld directly. Your cross-compiler is able to work as
+# a linker and using it as the linker allows it control at the linking stage.
 LD := i686-elf-gcc
 LDFLAGS := -nostdlib -ffreestanding -lgcc
 

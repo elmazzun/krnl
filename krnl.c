@@ -8,76 +8,96 @@
 
 /* This will be compiled only for 32-bit ix86 targets */
 #if !defined(__i386__)
-    #error "This tutorial needs to be compiled with a ix86-elf compiler"
+    #error "You need to compile this with a ix86-elf compiler"
 #endif
 
- /* video memory begins here */
-#define VGA_ADDRESS_START 0xB8000
-#define VGA_ADDRESS_END   0xC0000
-
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
-
-/* VGA provides support for 16 colors */
 enum vga_color {
-	VGA_COLOR_BLACK = 0,
-	VGA_COLOR_GREEN = 2,
-	VGA_COLOR_RED = 4,
-	VGA_COLOR_LIGHT_BROWN = 14,
+	VGA_COLOR_BLACK = 0, /* too bright to use */
+	VGA_COLOR_LIGHT_GREY = 7,
 	VGA_COLOR_WHITE = 15,
 };
 
-unsigned short *terminal_buffer;
-unsigned short terminal_row;
-unsigned short terminal_column;
-unsigned int vga_index;
-uint8_t terminal_color;
+/**
+ * VGA text mode (as well as the BIOS) are deprecated on newer machines and
+ * UEFI only supports pixel buffers.
+ */
+static const size_t VGA_WIDTH = 80;
+static const size_t VGA_HEIGHT = 25;
+/* video memory begins here */
+static uint16_t* const VGA_ADDRESS_START = (uint16_t*) 0xB8000;
 
-// void clear_screen(void) {
-//     int index = 0;
-//     /* there are 25 lines each of 80 columns;
-//        each element takes 2 bytes */
-//     // while (index < COLUMNS * LINES * 2) {
-//     //     terminal_buffer[index] = ' ';
-//     //     index += 2;
-//     // }
+size_t    terminal_row;
+size_t    terminal_column;
+uint8_t   terminal_color;
+uint16_t* terminal_buffer;
 
-// }
-
-uint16_t vga_entry(unsigned char uc, uint8_t color) {
-	return (uint16_t) uc | (uint16_t) color << 8;
+/**
+ * fg = foreground color
+ * bg = background color
+ */
+static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) 
+{
+	return fg | bg << 4;
 }
 
-void term_init() {
+static inline uint16_t vga_entry(unsigned char uc, uint8_t color)
+{
+    return (uint16_t) uc | (uint16_t) color << 8;
+}
+
+size_t strlen(const char* str)
+{
+    size_t len = 0;
+    while (str[len])
+        len++;
+    return len;
+}
+
+void terminal_init()
+{
     terminal_row = 0;
     terminal_column = 0;
-    terminal_buffer = (unsigned short *)VGA_ADDRESS_START;
+   	terminal_color = vga_entry_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+    terminal_buffer = VGA_ADDRESS_START;
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
-		for (size_t x = 0; x < VGA_WIDTH; x++) {
-			const size_t index = y * VGA_WIDTH + x;
-			terminal_buffer[index] = vga_entry(' ', terminal_color);
-		}
-	}
-}
-
-void print_string(char *str, unsigned char color) {
-    int index = 0;
-    while (str[index]) {
-        terminal_buffer[vga_index] = (unsigned short)str[index]|(unsigned short)color << 8;
-        index++;
-        vga_index++;
+        for (size_t x = 0; x < VGA_WIDTH; x++) {
+            const size_t index = y * VGA_WIDTH + x;
+            terminal_buffer[index] = vga_entry(' ', terminal_color);
+        }
     }
 }
 
-int main(void) {
-    term_init();
+/* index = (y_value * width_of_screen) + x_value; */
+void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) 
+{
+	const size_t index = y * VGA_WIDTH + x;
+	terminal_buffer[index] = vga_entry(c, color);
+}
 
-    // clear_screen();
-    // print_string("Hello krnl", YELLOW);
-    // vga_index = 80;    /* next line */
-    // // clear_screen();
-    // // vga_index = 160;    /* next line */
-    // print_string("Goodbye krnl", RED);
+void terminal_putchar(char c)
+{
+    terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
+    if (++terminal_column == VGA_WIDTH) {
+        terminal_column = 0;
+        if (++terminal_row == VGA_HEIGHT)
+            terminal_row = 0;
+    }
+}
 
+void terminal_write(const char *data, size_t size)
+{
+    for (size_t i = 0; i < size; i++)
+        terminal_putchar(data[i]);
+}
+
+void terminal_write_string(const char *data)
+{
+    terminal_write(data, strlen(data));
+}
+
+int main(void)
+{
+    terminal_init();
+    terminal_write_string("Hello, I am the krnl\n");
     return 0;
 }

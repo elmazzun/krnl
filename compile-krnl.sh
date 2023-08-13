@@ -5,5 +5,5 @@ docker run \
     --rm \
     -v=$(pwd):/krnl-lab \
     --cpus="2" \
-    --memory=2g \
+    --memory=4g \
     krnl-development-lab:0.1.0

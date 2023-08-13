@@ -10,9 +10,8 @@ ENV TARGET=i686-elf
 # since it is required for the gcc build
 ENV PATH="$PREFIX/bin:$PATH"
 
-WORKDIR /krnl-lab
-
-VOLUME /krnl-lab
+ENV USER="lab-builder"
+ENV GROUP="lab-builder-group"
 
 # binutils
 RUN apk update && apk add grub \
@@ -43,5 +42,8 @@ RUN mkdir -p $PREFIX && mkdir -p $HOME/src && cd $HOME/src && \
     ../gcc-13.1.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers && \
     make all-gcc && make all-target-libgcc && \
     make install-gcc && make install-target-libgcc
+
+WORKDIR /krnl-lab
+VOLUME /krnl-lab
 
 CMD ["make"]

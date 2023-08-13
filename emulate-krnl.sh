@@ -5,6 +5,7 @@
 sudo chown $USER:$USER krnl
 sudo chown -R $USER:$USER ./iso/
 
+echo "Listing symbol names in object krnl file..."
 nm krnl
 
 # TODO This should be qemu-system-i686
