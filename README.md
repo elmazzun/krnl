@@ -1,5 +1,15 @@
 # krnl
 
+⚠️⚠️⚠️
+
+**This repo is under heavy refactoring: kindly wait to use it as long as you**
+**see this notice.**
+
+**I am currently moving QEMU installation inside a dedicated Docker container**
+**in order to not install QEMU locally.**
+
+⚠️⚠️⚠️
+
 Creating a k(e)rn(e)l for fun.
 
 ## Building the krnl
