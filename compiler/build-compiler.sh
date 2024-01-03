@@ -2,4 +2,4 @@
 
 docker build \
     --memory=10g \
-    -t krnl-development-lab:0.1.0 .
+    -t krnl-compiler:0.1.0 .

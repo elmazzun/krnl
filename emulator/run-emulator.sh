@@ -6,7 +6,7 @@ docker run \
     -it \
     --rm \
     --device=/dev/kvm \
-    krnl-emulator-lab:0.1.0 sh
+    krnl-emulator:0.1.0 sh
 
 # # TODO make the image lab to NOT use root user while building the labs and
 # # compiling the krnl, this way I don't have to chown krnl and ./iso
