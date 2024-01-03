@@ -1,0 +1,5 @@
+# Downloading binutils and gcc sources code and copying them in the image while
+# building: during my tests I downloaded too many times these sources so I
+# downloaded them just once in my host and copied them in the image
+binutils-*.tar.xz
+gcc-*.tar.xz
